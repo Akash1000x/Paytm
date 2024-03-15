@@ -2,7 +2,7 @@ import express from "express";
 import { z } from "zod";
 import JWT from "jsonwebtoken";
 import User from "../../models/user.model.js";
-import authMiddleware from "../../middleware/middleware.js";
+import authMiddleware from "../../middleware/auth.middleware.js";
 import Account from "../../models/accounts.model.js";
 
 const router = express.Router();
