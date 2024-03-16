@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* .signup-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.signup-page > form{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  width: 330px;
+  border-radius: .3em;
+  padding: 20px;
+}
+.signup-page > form > h1{
+  text-align: center;
+}
+
+.signup-page > form > h4{
+  text-align: center;
+  font-weight: 700;
+  font-size: .9rem;
+  opacity: 0.7;
+}
+
+label{
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+input{
+  border: 1px solid black;
+  border-radius: .3em;
+  padding: 8px;
+  font-size: 1rem;
+  background-color: white;
+  color: black;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+input:focus{
+  outline: none;
+}
+
+.signup-page > form > button{
+  margin-top: 20px;
+  margin-bottom: 5px;
+  padding: 7px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.959);
+  border: none;
+  border-radius: .3em;
+  cursor: pointer;
+}
+
+.signup-page > form > p{
+  text-align: center;
+  font-weight: 600;
+}
+.signup-page > form > p > a{
+  color: rgba(42, 42, 240, 0.829);
+}
+
+.password-element{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.password-element > div{
+  position: absolute;
+  right: 10px;
+  top:5px;
+}
+
+.error{
+  color: red;
+  font-weight: 600;
+  font-size: .9rem;
+  margin-top: 5px;
+  text-align: start !important;
+} */

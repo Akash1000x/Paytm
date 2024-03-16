@@ -33,14 +33,14 @@ router.post("/signup", async (req, res) => {
   if (!success) {
     return res
       .status(411)
-      .json({ message: "Email already taken / Incorrect inputs" });
+      .json({ message: "Email already taken or Incorrect inputs" });
   }
 
   const userExist = await User.findOne({ username: req.body.username });
   if (userExist)
     return res
       .status(411)
-      .json({ message: "Email already taken / Incorrect inputs" });
+      .json({ message: "Email already taken or Incorrect inputs" });
 
   const user = await User.create({
     username: req.body.username,
@@ -56,7 +56,7 @@ router.post("/signup", async (req, res) => {
 
   const token = JWT.sign({ user_id }, `${process.env.SECRET}`);
 
-  return res.send({ message: "User created successfully", token: token });
+  return res.status(200).json({ message: "User created successfully", token: token });
 });
 
 router.post("/signin", async (req, res) => {
@@ -119,6 +119,7 @@ router.get("/bulk", async (req, res) => {
       username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
+      _id:user._id
     })),
   });
 });
