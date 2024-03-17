@@ -1,11 +1,38 @@
-import { useEffect } from "react";
-import { useSearchParams,useParams } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 function SendMoney() {
-    const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [amount, setAmount] = useState(0);
+
+  const name = searchParams.get("name");
+
+  const handleTransferFunds = async () => {
     const id = searchParams.get("id");
-    const name = searchParams.get("name");
- 
+    await axios
+      .put(
+        "http://localhost:8000/api/v1/account/transfer",
+        {
+          toAccountId: id,
+          amount,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) toast.success("Transfer successful");
+      })
+      .catch((err) => {
+        toast.error("Transfer failed");
+      });
+
+      setAmount(0);
+  };
 
   return (
     <div className="flex justify-center h-screen bg-gray-100">
@@ -17,7 +44,9 @@ function SendMoney() {
           <div className="p-6">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
-                <span className="text-2xl text-white capitalize">{name[0]}</span>
+                <span className="text-2xl text-white capitalize">
+                  {name[0]}
+                </span>
               </div>
               <h3 className="text-2xl font-semibold capitalize">{name}</h3>
             </div>
@@ -30,13 +59,18 @@ function SendMoney() {
                   Amount (in Rs)
                 </label>
                 <input
+                value={amount}
                   type="number"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   id="amount"
                   placeholder="Enter amount"
+                  onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
-              <button className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white">
+              <button
+                onClick={handleTransferFunds}
+                className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white"
+              >
                 Initiate Transfer
               </button>
             </div>

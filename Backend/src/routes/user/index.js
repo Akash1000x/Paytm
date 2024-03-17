@@ -69,15 +69,15 @@ router.post("/signin", async (req, res) => {
     username: req.body.username,
     password: req.body.password,
   });
-  const user_id = user._id;
-
+  
   if (user) {
+    const user_id = user._id;
     const token = JWT.sign({ user_id }, `${process.env.SECRET}`);
-    return res.send({ message: "User signed in successfully", token: token });
+    return res.send({ message: "User signed in successfully", token: token,name:user.firstName });
   }
 
   res.status(411).json({
-    message: "Error while logging in",
+    message: "username or password is incorrect",
   });
 });
 
@@ -98,9 +98,9 @@ router.put("/", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/bulk", async (req, res) => {
+router.get("/bulk",authMiddleware, async (req, res) => {
   const filter = req.query.filter || "";
-  const users = await User.find({
+  let users = await User.find({
     $or: [
       {
         firstName: {
@@ -114,6 +114,8 @@ router.get("/bulk", async (req, res) => {
       },
     ],
   });
+
+  users = users.filter((user)=> user._id != req.user_id)
   return res.status(200).json({
     user: users.map((user) => ({
       username: user.username,

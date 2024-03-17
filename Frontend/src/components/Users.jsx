@@ -8,14 +8,15 @@ export const Users = () => {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
+    console.log(filter);
     axios
-      .get("http://localhost:8000/api/v1/user/bulk?filter" + filter)
+      .get("http://localhost:8000/api/v1/user/bulk?filter=" + filter, {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
       .then((res) => {
         serUsers(res.data.user);
       });
   }, [filter]);
-
-  
 
   return (
     <div>
@@ -41,7 +42,6 @@ export const Users = () => {
 
 function User({ user }) {
   const navigate = useNavigate();
-
 
   return (
     <div className="flex justify-between ">
